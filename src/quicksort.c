@@ -15,7 +15,14 @@ static void quicksort_helper(void *array, int left, int right, size_t elem_sz,
  * @size: the length in bytes to swap
  */
 static void swap(void *a, void *b, size_t size) {
-    // TODO
+	char temp = '\0';
+	char *x = (char *)a;
+	char *y = (char *)b;
+	for (size_t i = 0; i < size; i++) {
+		temp = *x;
+		*x = *y;
+		*y = temp;
+	}
 }
 
 /**
