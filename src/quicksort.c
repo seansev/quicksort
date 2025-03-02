@@ -55,5 +55,9 @@ static int lomuto(void *array, int left, int right, size_t elem_sz,
  */
 static void quicksort_helper(void *array, int left, int right, size_t elem_sz,
                              int (*cmp) (const void*, const void*)) {
-    // TODO
+	if (left < right) {
+		int s = lomuto(array, left, right, elem_sz, cmp);
+		quicksort_helper(array, left, s-1, elem_sz, cmp);
+		quicksort_helper(array, s+1, right, elem_sz, cmp);
+	}
 }
