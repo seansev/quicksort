@@ -36,7 +36,15 @@ static void swap(void *a, void *b, size_t size) {
  */
 static int lomuto(void *array, int left, int right, size_t elem_sz,
                   int (*cmp) (const void*, const void*)) {
-    // TODO
+	int s = left;
+	for (int i = left+1; i <= right; i++) {
+		if (cmp(array[i], array[left]) < 0) {
+			s += 1;
+			swap(array[s], array[i], elem_sz);
+		}
+	}
+	swap(array[left], array[s], elem_sz);
+	return s;
 }
 
 /**
