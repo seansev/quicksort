@@ -18,7 +18,14 @@ static void quicksort_helper(void *array, int left, int right, size_t elem_sz,
  * and this function will swap 4 bytes starting at a and b pointers.
  */
 static void swap(void *a, void *b, size_t size) {
-    // TODO
+	char temp = '\0';
+	char *x = (char *)a;
+	char *y = (char *)b;
+	for (size_t i = 0; i < size; i++) {
+		temp = *x;
+		*x = *y;
+		*y = temp;
+	}
 }
 
 /**
