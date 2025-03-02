@@ -61,3 +61,27 @@ static void quicksort_helper(void *array, int left, int right, size_t elem_sz,
 		quicksort_helper(array, s+1, right, elem_sz, cmp);
 	}
 }
+
+// Exported Functions
+int int_cmp(const void *a, const void *b) {
+	int *x = (int *)a;
+	int *y = (int *)b;
+	return (*x > *y) - (*y > *x);
+}
+
+int dbl_cmp(const void *a, const void *b) {
+	double *x = (double *)a;
+	double *y = (double *)y;
+	return (*x > *y) - (*y > *x);
+}
+
+int str_cmp(const void *a, const void *b) {
+	char *x = (char *)a;
+	char *y = (char *)b;
+	strcmp(x, y);
+}
+
+void quicksort(void *array, size_t len, size_t elem_sz,
+		int (*cmp)(const void *, const void *)) {
+	quicksort_helper(array, 0, len-1, elem_sz, cmp);
+}
