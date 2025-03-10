@@ -36,14 +36,16 @@ static void swap(void *a, void *b, size_t size) {
  */
 static int lomuto(void *array, int left, int right, size_t elem_sz,
                   int (*cmp) (const void*, const void*)) {
+	char *a = (char *)array;
+	char *p = a + elem_sz*left;
 	int s = left;
 	for (int i = left+1; i <= right; i++) {
-		if (cmp(array[i], array[left]) < 0) {
+		if (cmp(a + elem_sz*i, p) < 0) {
 			s += 1;
-			swap(array[s], array[i], elem_sz);
+			swap(a + elem_sz*s, a + elem_sz*i, elem_sz);
 		}
 	}
-	swap(array[left], array[s], elem_sz);
+	swap(p, a + elem_sz*s, elem_sz);
 	return s;
 }
 
@@ -71,14 +73,14 @@ int int_cmp(const void *a, const void *b) {
 
 int dbl_cmp(const void *a, const void *b) {
 	double *x = (double *)a;
-	double *y = (double *)y;
+	double *y = (double *)b;
 	return (*x > *y) - (*y > *x);
 }
 
 int str_cmp(const void *a, const void *b) {
 	char *x = (char *)a;
 	char *y = (char *)b;
-	strcmp(x, y);
+	return strcmp(x, y);
 }
 
 void quicksort(void *array, size_t len, size_t elem_sz,
