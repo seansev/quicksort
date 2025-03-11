@@ -45,7 +45,6 @@ static int lomuto(void *array, int left, int right, size_t elem_sz,
 			swap(a + elem_sz*s, a + elem_sz*i, elem_sz);
 		}
 	}
-	printf("%p, %p\n", p, a + elem_sz*s);
 	swap(p, a + elem_sz*s, elem_sz);
 	return s;
 }
