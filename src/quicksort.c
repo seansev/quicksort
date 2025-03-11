@@ -18,13 +18,13 @@ static void quicksort_helper(void *array, int left, int right, size_t elem_sz,
  * and this function will swap 4 bytes starting at a and b pointers.
  */
 static void swap(void *a, void *b, size_t size) {
-	char temp = '\0';
-	char *x = (char *)a;
-	char *y = (char *)b;
+	unsigned char temp;
+	unsigned char *x = (unsigned char *)a;
+	unsigned char *y = (unsigned char *)b;
 	for (size_t i = 0; i < size; i++) {
-		temp = *x;
-		*x = *y;
-		*y = temp;
+		temp = x[i];
+		x[i] = y[i];
+		y[i] = temp;
 	}
 }
 
@@ -45,6 +45,7 @@ static int lomuto(void *array, int left, int right, size_t elem_sz,
 			swap(a + elem_sz*s, a + elem_sz*i, elem_sz);
 		}
 	}
+	printf("%p, %p\n", p, a + elem_sz*s);
 	swap(p, a + elem_sz*s, elem_sz);
 	return s;
 }
