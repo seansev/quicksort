@@ -18,6 +18,7 @@ static void quicksort_helper(void *array, int left, int right, size_t elem_sz,
  * and this function will swap 4 bytes starting at a and b pointers.
  */
 static void swap(void *a, void *b, size_t size) {
+	if (a == NULL || b == NULL) return;
 	unsigned char temp;
 	unsigned char *x = (unsigned char *)a;
 	unsigned char *y = (unsigned char *)b;
@@ -36,6 +37,7 @@ static void swap(void *a, void *b, size_t size) {
  */
 static int lomuto(void *array, int left, int right, size_t elem_sz,
                   int (*cmp) (const void*, const void*)) {
+	if (array == NULL || cmp == NULL) return left;
 	char *a = (char *)array;
 	char *p = a + elem_sz*left;
 	int s = left;
@@ -57,6 +59,7 @@ static int lomuto(void *array, int left, int right, size_t elem_sz,
  */
 static void quicksort_helper(void *array, int left, int right, size_t elem_sz,
                              int (*cmp) (const void*, const void*)) {
+	if (array == NULL || cmp == NULL) return;
 	if (left < right) {
 		int s = lomuto(array, left, right, elem_sz, cmp);
 		quicksort_helper(array, left, s-1, elem_sz, cmp);
@@ -66,18 +69,21 @@ static void quicksort_helper(void *array, int left, int right, size_t elem_sz,
 
 // Exported Functions
 int int_cmp(const void *a, const void *b) {
+	if (a == NULL || b == NULL) return 0;
 	int *x = (int *)a;
 	int *y = (int *)b;
 	return (*x > *y) - (*y > *x);
 }
 
 int dbl_cmp(const void *a, const void *b) {
+	if (a == NULL || b == NULL) return 0;
 	double *x = (double *)a;
 	double *y = (double *)b;
 	return (*x > *y) - (*y > *x);
 }
 
 int str_cmp(const void *a, const void *b) {
+	if (a == NULL || b == NULL) return 0;
 	char *x = (char *)a;
 	char *y = (char *)b;
 	return strcmp(x, y);
@@ -85,5 +91,6 @@ int str_cmp(const void *a, const void *b) {
 
 void quicksort(void *array, size_t len, size_t elem_sz,
 		int (*cmp)(const void *, const void *)) {
+	if (array == NULL || cmp == NULL) return;
 	quicksort_helper(array, 0, len-1, elem_sz, cmp);
 }
