@@ -52,6 +52,7 @@ int main(int argc, char **argv) {
 	
 	if (mode == 1) {
 		int *array = (int *)malloc(MAX_ELEMENTS * sizeof(int));
+		if (array == NULL) goto MALLOC_FAIL;
 		while (fgets(buffer, MAX_STRLEN, file) != NULL) {
 			array[length] = atoi(buffer);
 			length++;
@@ -63,6 +64,7 @@ int main(int argc, char **argv) {
 		free(array);
 	} else if (mode == 2) {
 		double *array = (double *)malloc(MAX_ELEMENTS * sizeof(double));
+		if (array == NULL) goto MALLOC_FAIL;
 		while (fgets(buffer, MAX_STRLEN, file) != NULL) {
 			array[length] = atof(buffer);
 			length++;
@@ -75,6 +77,7 @@ int main(int argc, char **argv) {
 	} else if (mode == 3) {
 		size_t size = MAX_STRLEN + 2;
 		char *array = (char *)malloc(MAX_ELEMENTS * size);
+		if (array == NULL) goto MALLOC_FAIL;
 		while (fgets(buffer, size, file) != NULL) {
 			strcpy(array + size*length, buffer);
 			length++;
@@ -105,5 +108,9 @@ MULTIPLE_ARGS:
 
 NOT_FOUND:
 	fprintf(stderr, "Error: Cannot open '%s'. %s.\n", argv[optind], strerror(errno));
+	return EXIT_FAILURE;
+
+MALLOC_FAIL:
+	fprintf(stderr, "Error: malloc failed. %s.\n", strerror(errno));
 	return EXIT_FAILURE;
 }
